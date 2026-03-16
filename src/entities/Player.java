@@ -3,7 +3,7 @@ package entities;
 public class Player {
 
 	private String name;
-	private char symbol;
+	private char symbol; //C-Continua
 	
 	public Player(String name, char symbol) {
 		this.name = name;

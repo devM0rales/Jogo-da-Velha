@@ -24,7 +24,7 @@ public class Program {
 		Board board = new Board(b, playerX, playerO);
 		board.createBoard();
 		
-		while(board.getVerify() == "Continue") {
+		while(board.getVerify() == 'C') {
 			board.showBoard();
 			
 			System.out.println("Vez do " + board.getPlayerX().getName());
@@ -32,23 +32,22 @@ public class Program {
 			int lin = sc.nextInt();
 			System.out.print("Coluna: ");
 			int col = sc.nextInt();
+			
 			board.play(lin, col, playerX);
 			board.showBoard();
-			System.out.println(board.getVerify());
-			board.verifyWin();
+			board.verifyWin(playerX.getSymbol());
 			
 			System.out.println("Vez do " + board.getPlayerO().getName());
-			System.out.println("Linha: ");
+			System.out.print("Linha: ");
 			lin = sc.nextInt();
-			System.out.println("Coluna: ");	
+			System.out.print("Coluna: ");	
 			col = sc.nextInt();
 			board.play(lin, col, playerO);
-			System.out.println(board.getVerify());
-			board.verifyWin();
 			
-
+			board.verifyWin(playerO.getSymbol());
 		}
 		
+		board.showResult();
 		
 		sc.close();
 	}
