@@ -1,22 +1,30 @@
 package entities;
 
-import entities.Player;
-
 public class Board {
 	
 	private Player playerX;
 	private Player playerO;
+	private Player player;
 	private char verify;
 	
 	char[][] board = new char[3][3];
 	
-	public Board(char[][] board, Player playerX, Player playerO) {
+	
+	public Board(char[][] board, Player playerX, Player playerO, Player player) {
 		this.board = board;
 		this.playerX = playerX;
 		this.playerO = playerO;
-		
+		this.player = player;
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	public Player getPlayerX() {
 		return playerX;
 	}
@@ -54,13 +62,28 @@ public class Board {
 		}
 	}
 	public void play(int lin, int col, Player p) {
-		board[lin][col] = p.getSymbol();
+		if(board[lin][col] != ' ') {
+			System.out.println("Posição já ocupada!");
+		}
+		else {
+			board[lin][col] = p.getSymbol();
+		}
 	}
+	
+	public void alterPlayer(int count) {
+		if (count %2 == 0) {
+			this.player = playerO;
+		}
+		else {
+			player = playerX;
+		}
+	}
+	
 	public void showBoard() {
 		System.out.print("  0  1  2");
 		for (int i = 0; i<3; i++) {
 			System.out.println("");
-			System.out.print(i);
+			System.out.print(i +" ");
 			for(int j = 0; j<3;j++) {
 				System.out.print(board[i][j]+"|");
 			}
@@ -89,6 +112,17 @@ public class Board {
 		//Verifica a Diagonal Secundaria
 		if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
 			verify = symbol;
+		}
+		int count = 0;
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j<3; j++) {
+				if (board[i][j] != ' '){
+					count += 1;
+				}
+			}
+		}
+		if (count == 9) {
+			verify = 'E';
 		}
 	}
 	public void showResult() {
